@@ -1,0 +1,81 @@
+@startuml
+
+package "Real Estate Agency Management System" {
+    
+    actor Admin
+    actor Agent
+    actor Client
+
+    Admin --> UI : Uses
+    Agent --> UI : Uses
+    Client --> UI : Uses
+
+    package "User Interface (UI)" {
+        [Admin UI]
+        [Agent UI]
+        [Client UI]
+    }
+    
+    package "Property Management" {
+        [Property Database]
+        [Property Service]
+        [Property Controller]
+    }
+    
+    package "Client Management" {
+        [Client Database]
+        [Client Service]
+        [Client Controller]
+    }
+    
+    package "Transaction Management" {
+        [Transaction Database]
+        [Transaction Service]
+        [Transaction Controller]
+    }
+    
+    package "Report Generation" {
+        [Report Database]
+        [Report Service]
+        [Report Controller]
+    }
+    
+    package "Authentication and Authorization" {
+        [Auth Service]
+        [User Database]
+    }
+    
+    [Admin UI] --> [Property Controller] : Manages Properties
+    [Admin UI] --> [Client Controller] : Manages Clients
+    [Admin UI] --> [Transaction Controller] : Manages Transactions
+    [Admin UI] --> [Report Controller] : Generates Reports
+    
+    [Agent UI] --> [Property Controller] : Manages Properties
+    [Agent UI] --> [Client Controller] : Manages Clients
+    [Agent UI] --> [Transaction Controller] : Manages Transactions
+    [Agent UI] --> [Report Controller] : Generates Reports
+    
+    [Client UI] --> [Property Controller] : Views Properties
+    [Client UI] --> [Transaction Controller] : Initiates Transactions
+
+    [Property Controller] --> [Property Service]
+    [Property Service] --> [Property Database]
+
+    [Client Controller] --> [Client Service]
+    [Client Service] --> [Client Database]
+
+    [Transaction Controller] --> [Transaction Service]
+    [Transaction Service] --> [Transaction Database]
+
+    [Report Controller] --> [Report Service]
+    [Report Service] --> [Report Database]
+
+    [Admin UI] --> [Auth Service] : Authenticates
+    [Agent UI] --> [Auth Service] : Authenticates
+    [Client UI] --> [Auth Service] : Authenticates
+
+    [Auth Service] --> [User Database]
+
+}
+
+@enduml
